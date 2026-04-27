@@ -13,8 +13,12 @@ const LanguageContext = createContext<Ctx | null>(null)
 
 function readStoredLocale(): Locale {
   if (typeof window === 'undefined') return 'es'
-  const raw = window.localStorage.getItem(STORAGE_KEY)
-  return raw === 'en' ? 'en' : 'es'
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    return raw === 'en' ? 'en' : 'es'
+  } catch {
+    return 'es'
+  }
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -23,7 +27,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next)
     if (typeof window !== 'undefined') {
-      window.localStorage.setItem(STORAGE_KEY, next)
+      try {
+        window.localStorage.setItem(STORAGE_KEY, next)
+      } catch {
+        /* modo privado u orígenes restringidos */
+      }
     }
   }, [])
 

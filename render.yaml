@@ -8,7 +8,6 @@ services:
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
     envVars:
-      # Tras el primer deploy, pon aquí tu URL pública (sin barra final), p. ej. https://portafolio-mario.onrender.com
-      # para que Open Graph / Twitter muestren bien la imagen al compartir.
+      # URL canónica para meta og:image / twitter (sin barra final). Si usas dominio propio, cámbiala aquí o en el dashboard.
       - key: VITE_SITE_URL
-        sync: false
+        value: https://portafolio-mario.onrender.com
