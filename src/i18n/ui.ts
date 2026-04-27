@@ -44,6 +44,9 @@ export const ui: Record<
     carouselDotsAria: string
     carouselDotGoTo: (n: number) => string
     carouselSlideSr: (current: number, total: number) => string
+    openLightbox: string
+    closeLightbox: string
+    lightboxDialog: string
   }
 > = {
   es: {
@@ -89,6 +92,9 @@ export const ui: Record<
     carouselDotsAria: 'Seleccionar captura',
     carouselDotGoTo: (n) => `Ver captura ${n}`,
     carouselSlideSr: (current, total) => `Diapositiva ${current} de ${total}. `,
+    openLightbox: 'Ampliar imagen',
+    closeLightbox: 'Cerrar vista ampliada',
+    lightboxDialog: 'Vista ampliada de imagen',
   },
   en: {
     skipToContent: 'Skip to content',
@@ -133,5 +139,8 @@ export const ui: Record<
     carouselDotsAria: 'Select screenshot',
     carouselDotGoTo: (n) => `View screenshot ${n}`,
     carouselSlideSr: (current, total) => `Slide ${current} of ${total}. `,
+    openLightbox: 'Enlarge image',
+    closeLightbox: 'Close enlarged view',
+    lightboxDialog: 'Enlarged image view',
   },
 }

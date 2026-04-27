@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type KeyboardEvent } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 import { ui } from '../i18n/ui'
+import { ImageLightbox } from './ImageLightbox'
 
 export type GallerySlide = {
   src: string
@@ -17,6 +18,7 @@ export function ProjectGalleryCarousel({ slides, title, closingNote }: Props) {
   const { locale } = useLanguage()
   const t = ui[locale]
   const [index, setIndex] = useState(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const total = slides.length
   const safeIndex = ((index % total) + total) % total
   const current = slides[safeIndex]
@@ -35,6 +37,10 @@ export function ProjectGalleryCarousel({ slides, title, closingNote }: Props) {
   useEffect(() => {
     setIndex((i) => Math.min(i, Math.max(0, slides.length - 1)))
   }, [slides.length])
+
+  useEffect(() => {
+    setLightboxOpen(false)
+  }, [safeIndex])
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowLeft') {
@@ -62,13 +68,20 @@ export function ProjectGalleryCarousel({ slides, title, closingNote }: Props) {
     >
       <div className="carousel__viewport">
         <figure className="carousel__figure">
-          <img
-            className="carousel__img"
-            src={current.src}
-            alt=""
-            loading={safeIndex === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-          />
+          <button
+            type="button"
+            className="carousel__thumbBtn"
+            onClick={() => setLightboxOpen(true)}
+            aria-label={t.openLightbox}
+          >
+            <img
+              className="carousel__img"
+              src={current.src}
+              alt=""
+              loading={safeIndex === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          </button>
           <figcaption className="carousel__caption">
             <span className="srOnly">{t.carouselSlideSr(safeIndex + 1, total)}</span>
             {current.caption}
@@ -104,6 +117,15 @@ export function ProjectGalleryCarousel({ slides, title, closingNote }: Props) {
       </p>
 
       {closingNote ? <p className="carousel__closing">{closingNote}</p> : null}
+
+      <ImageLightbox
+        open={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        src={current.src}
+        alt=""
+        caption={current.caption}
+        labels={{ close: t.closeLightbox, dialog: t.lightboxDialog }}
+      />
     </div>
   )
 }

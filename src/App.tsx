@@ -1,5 +1,6 @@
 import { portfolioByLocale } from './content/portfolio'
 import { useLanguage } from './context/LanguageContext'
+import { ExpandableImage } from './components/ExpandableImage'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { ProjectCard } from './components/ProjectCard'
@@ -58,7 +59,12 @@ function App() {
               </div>
 
               <div className="hero__avatarWrap" aria-label={t.profilePhotoAria}>
-                <img className="hero__avatar" src={portfolio.avatar.src} alt={portfolio.avatar.alt} />
+                <ExpandableImage
+                  src={portfolio.avatar.src}
+                  alt={portfolio.avatar.alt}
+                  imgClassName="hero__avatar"
+                  wrapClassName="hero__avatarBtn"
+                />
               </div>
             </div>
           </section>
