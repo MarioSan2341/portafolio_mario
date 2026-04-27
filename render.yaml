@@ -1,0 +1,14 @@
+# Blueprint para Render: Static Site (Vite → dist)
+# Docs: https://render.com/docs/static-sites
+services:
+  - type: web
+    name: portafolio-mario
+    runtime: static
+    branch: main
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      # Tras el primer deploy, pon aquí tu URL pública (sin barra final), p. ej. https://portafolio-mario.onrender.com
+      # para que Open Graph / Twitter muestren bien la imagen al compartir.
+      - key: VITE_SITE_URL
+        sync: false
