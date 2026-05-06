@@ -44,6 +44,7 @@ const skills: PortfolioData['skills'] = [
   'Node.js',
   'NestJS',
   'Laravel',
+  'PHP',
   'PostgreSQL',
   'MySQL',
   'SQL',
